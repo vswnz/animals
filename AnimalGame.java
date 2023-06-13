@@ -22,10 +22,17 @@ public class AnimalGame
     private String askYesOrNo(String question){
         String answer="";
         Scanner keyboard=new Scanner(System.in);
+        boolean first=true;
         while (!answer.equals("yes") && !answer.equals("no")) 
         {// minimal error checking of input
-            System.out.println("Please just, 'yes', or 'no'");
-            System.out.println(question);
+            if (first) first=false;
+            else System.out.println("Please just, 'yes', or 'no'");
+            
+            // Lets make sure there is a question mark at the end of the line
+            char extraqm=' ';
+            if (question.charAt(question.length()-1) !='?') extraqm='?';
+            
+            System.out.println(question+extraqm);
             answer=keyboard.nextLine();
         }
         return answer;
@@ -36,11 +43,12 @@ public class AnimalGame
      */
     public AnimalGame()
     {
-        tree=new QorA("Do it have four legs?",false);  // we start off knowing about dogs & birds.
-        QorA dog=new QorA("dog",true);
-        QorA bird=new QorA("bird",true);
-        tree.setAnimal(dog,true);
-        tree.setAnimal(bird,false);
+        tree=new QorA("Does it have four legs?");  // we start off knowing about dogs & birds.
+        QorA dog=new QorA("dog");
+        QorA bird=new QorA("bird");
+
+        tree.setBranch(dog,true);
+        tree.setBranch(bird,false);
         String playAgain="yes";
         while (playAgain.equals("yes")){
             // First print out instructions.
@@ -55,12 +63,12 @@ public class AnimalGame
                 previous=currentQ;   // need to remember this for rebalancing the tree later on
                 if (askYesOrNo(currentQ.whoAmI()).equals("yes")) 
                 {
-                    currentQ=currentQ.getCorrectQorA(true);
+                    currentQ=currentQ.getBranch(true);
                     previousYN=true;
                 }
                 else 
                 {
-                    currentQ=currentQ.getCorrectQorA(false);
+                    currentQ=currentQ.getBranch(false);
                     previousYN=false;
                 }
 
@@ -73,24 +81,44 @@ public class AnimalGame
                 System.out.println("Oh.... :-(");
                 System.out.println("What were you thinking of?");
                 Scanner keyboard=new Scanner(System.in);
-                QorA newAnimal= new QorA(keyboard.nextLine(),true);
+                String animal= keyboard.nextLine();
+                if (animal.charAt(animal.length()-1)=='?') // if it has a questionmark at the end, remove it.
+                  animal=animal.substring(0,animal.length()-2);
+                  
+                QorA newAnimal= new QorA(animal);
                 System.out.println("And what yes/no question could I ask to distinguish between a");
                 System.out.println(currentQ.whoAmI() +" and a "+newAnimal.whoAmI()+"?");
-                QorA newQuestion=new QorA(keyboard.nextLine(),false);
+                String question= keyboard.nextLine();
+                if (question.charAt(question.length()-1)!='?') {// if it has a questionmark at the end, remove it.
+                  //System.out.println("DEBUG: Adding question mark to end of question: "+question.charAt(question.length()-1) );
+                  question=question+"?";
+                  
+                }
+                
+                QorA newQuestion=new QorA(question);
                 String rightAnswer=askYesOrNo("and is the answer yes or no for a "+newAnimal.whoAmI());
                 if (rightAnswer.equals("yes")){
-                    newQuestion.setAnimal(currentQ,false);
-                    newQuestion.setAnimal(newAnimal,true);
+                    newQuestion.setBranch(currentQ,false);
+                    newQuestion.setBranch(newAnimal,true);
                 } else {
-                    newQuestion.setAnimal(currentQ,true);
-                    newQuestion.setAnimal(newAnimal,false);
+                    newQuestion.setBranch(currentQ,true);
+                    newQuestion.setBranch(newAnimal,false);
                 }  // RightAnswer (else)
                 // Now update the previous question to point to the new one we jsut made
-                previous.setAnimal(newQuestion,previousYN);
+                previous.setBranch(newQuestion,previousYN);
                   
             } // update new question
 
              playAgain=askYesOrNo("Want to play again?");
         } // Play again?
     }
+    
+    // recursive read of question file.
+    QorA readFile(){
+       // still have to write this!  Recursive read method in which each line is read and returned if it is 
+     //an animal is probably the way to go.
+     return null;
+        
+    }
+    
 }

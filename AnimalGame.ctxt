@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.target=AnimalGame
+comment1.params=question
+comment1.target=java.lang.String\ askYesOrNo(java.lang.String)
+comment2.params=
+comment2.target=AnimalGame()
+comment2.text=\r\n\ main\ routine\r\n
+comment3.params=
+comment3.target=QorA\ readFile()
+numComments=4

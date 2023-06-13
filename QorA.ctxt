@@ -1,0 +1,18 @@
+#BlueJ class context
+comment0.target=QorA
+comment0.text=\r\nQorA\r\nObject\ that\ contains\ either\ the\ name\ of\ an\ animal,\ or\ a\ question\ that\ \r\ncan\ distinguish\ between\ two\ animals.\r\n\r\n\ @author\ Bill\ Viggers\r\n\ @version\ 1st\ June\ 2020\r\n\ 13-Jun-2023\ -\ update\ to\ auto\ identify\ if\ a\ question\ by\ presence\ of\ a\ question\ mark\ at\ end.\r\n
+comment1.params=text
+comment1.target=QorA(java.lang.String)
+comment1.text=\r\n\ Constructor\:\r\n\ \r\n
+comment2.params=
+comment2.target=boolean\ isAnAnimal()
+comment2.text=\r\n\ Returns\ true\ if\ this\ is\ an\ animal,\ or\ false\ if\ it\ is\ a\ question\r\n
+comment3.params=
+comment3.target=java.lang.String\ whoAmI()
+comment3.text=\r\n\ Returns\ either\ the\ question\ or\ the\ name\ of\ the\ animal,\ depending\ on\ what\ this\ node\ is.\r\n
+comment4.params=yes
+comment4.target=QorA\ getBranch(boolean)
+comment4.text=\r\n\ Returns\ either\ the\ yes\ or\ no\ branch\ of\ the\ question,\ depending\ on\ if\ it\ is\ passed\ a\ \r\n\ true\ (yes)\ or\ false\ (no)\ value.\r\n
+comment5.params=node\ yes
+comment5.target=void\ setBranch(QorA,\ boolean)
+numComments=6
